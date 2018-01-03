@@ -1,6 +1,7 @@
 #ifndef COLOR_H
 #define COLOR_H
 #include <cstdint>
+#include <string>
 
 namespace StealthColor {
     class Color {
@@ -18,5 +19,9 @@ namespace StealthColor {
             uint8_t r, g, b, alpha;
     };
 } /* StealthColor */
+
+inline std::string to_string(const StealthColor::Color& tile) {
+    return "(" + std::to_string(tile.r) + ", " + std::to_string(tile.g) + ", " + std::to_string(tile.b) + ", " + std::to_string(tile.alpha) + ")";
+}
 
 #endif
