@@ -15,7 +15,7 @@ namespace StealthColor {
 
             template <typename ScalarType>
             const Color& operator()(ScalarType val) const {
-                return (val >= ScalarType(1)) ? (*this)[this -> size() - 1] : (*this)[(unsigned) (this -> size() * val)];
+                return (val >= ScalarType(1)) ? (*this)[this -> size() - 1] : (*this)[(int) (this -> size() * val)];
             }
     };
 
@@ -33,7 +33,7 @@ namespace StealthColor {
             Color colorA, colorB;
     };
 
-    template <unsigned width, unsigned length, unsigned height, typename ScalarType, typename ColorPalette>
+    template <int width, int length, int height, typename ScalarType, typename ColorPalette>
     StealthTileMap::TileMap<Color, width, length, height> applyPalette(const ColorPalette& palette,
         const StealthTileMap::TileMap<ScalarType, width, length, height>& map) {
         return StealthTileMap::apply(palette, map);
