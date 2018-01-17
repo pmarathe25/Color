@@ -10,8 +10,8 @@ INCLUDE = -I$(INCLUDEPATH)
 HEADERS = $(addprefix $(INCLUDEPATH)/, Color.hpp ColorPalette.hpp)
 # Compiler settings
 CXX = g++
-CFLAGS = -fPIC -c -std=c++17 $(INCLUDE) -O3 -Wpedantic -march=native -flto 
-LFLAGS = -shared -flto -march=native
+CFLAGS = -fPIC -c -std=c++17 $(INCLUDE) -flto -O3 -Wpedantic -march=native
+LFLAGS = -shared -flto -O3 -march=native
 
 lib/libstealthcolor.so: $(OBJS)
 	$(CXX) $(LFLAGS) $(OBJS) -o lib/libstealthcolor.so
