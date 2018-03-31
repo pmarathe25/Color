@@ -1,7 +1,7 @@
 #ifndef COLOR_PALETTE
 #define COLOR_PALETTE
 #include "Color.hpp"
-#include "TileMap/TileMap.hpp"
+#include <Stealth/Tensor3>
 #include <vector>
 
 namespace StealthColor {
@@ -34,9 +34,9 @@ namespace StealthColor {
     };
 
     template <int width, int length, int height, typename ScalarType, typename ColorPalette>
-    StealthTileMap::TileMap<Color, width, length, height> applyPalette(const ColorPalette& palette,
-        const StealthTileMap::TileMap<ScalarType, width, length, height>& map) {
-        return StealthTileMap::apply(palette, map);
+    Stealth::Math::Tensor3<Color, width, length, height> applyPalette(const ColorPalette& palette,
+        const Stealth::Math::Tensor3<ScalarType, width, length, height>& map) {
+        return Stealth::Math::apply(palette, map);
     }
 } /* StealthColor */
 

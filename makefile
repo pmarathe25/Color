@@ -1,20 +1,24 @@
-BUILDDIR = build/
-BINDIR = ~/bin/
-TESTDIR = test/
-SRCDIR = src/
+include ../makefile.defines
+BUILDDIR = build
+BINDIR = ~/bin
+TESTDIR = test
+SRCDIR = src
 # Objects
-OBJS = $(addprefix $(BUILDDIR)/, Color.o ColorPalette.o)
+OBJS = $(call generate_obj_names,$(SRCDIR),$(BUILDDIR))
+LIB = lib/libstealthcolor.so
 # Headers
-INCLUDEPATH = include/
+INCLUDEPATH = include
 INCLUDE = -I$(INCLUDEPATH)
-HEADERS = $(addprefix $(INCLUDEPATH)/, Color.hpp ColorPalette.hpp)
+HEADERS = $(call find_headers,$(INCLUDEPATH))
 # Compiler settings
 CXX = g++
 CFLAGS = -fPIC -c -std=c++17 $(INCLUDE) -flto -O3 -Wpedantic -march=native
 LFLAGS = -shared -flto -O3 -march=native
 
-lib/libstealthcolor.so: $(OBJS)
-	$(CXX) $(LFLAGS) $(OBJS) -o lib/libstealthcolor.so
+.PHONY: clean lib install uninstall
+
+$(LIB): $(OBJS)
+	$(CXX) $(LFLAGS) $(OBJS) -o $(LIB)
 
 $(BUILDDIR)/Color.o: $(SRCDIR)/Color.cpp include/Color.hpp
 	$(CXX) $(CFLAGS) $(SRCDIR)/Color.cpp -o $(BUILDDIR)/Color.o
@@ -23,6 +27,16 @@ $(BUILDDIR)/ColorPalette.o: $(SRCDIR)/ColorPalette.cpp include/ColorPalette.hpp
 	$(CXX) $(CFLAGS) $(SRCDIR)/ColorPalette.cpp -o $(BUILDDIR)/ColorPalette.o
 
 clean:
-	rm $(OBJS)
+	rm $(OBJS) $(LIB)
 
-lib: lib/libstealthcolor.so
+lib: $(LIB)
+
+install: lib
+	$(call install_headers,$(INCLUDEPATH),Color,$(HEADERS))
+	make lib
+	sudo ln -snf $(CURDIR)/$(LIB) /usr/local/lib/libstealthcolor.so
+	sudo ldconfig
+
+uninstall:
+	$(call uninstall_headers,Color)
+	-sudo rm /usr/local/lib/libstealthcolor.so
