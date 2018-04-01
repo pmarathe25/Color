@@ -34,9 +34,9 @@ namespace StealthColor {
     };
 
     template <int width, int length, int height, typename ScalarType, typename ColorPalette>
-    Stealth::Math::Tensor3<Color, width, length, height> applyPalette(const ColorPalette& palette,
-        const Stealth::Math::Tensor3<ScalarType, width, length, height>& map) {
-        return Stealth::Math::apply(palette, map);
+    Stealth::Tensor::Tensor3<Color, width, length, height> applyPalette(const ColorPalette& palette,
+        const Stealth::Tensor::Tensor3<ScalarType, width, length, height>& map) {
+        return Stealth::Tensor::apply(palette, map);
     }
 } /* StealthColor */
 
