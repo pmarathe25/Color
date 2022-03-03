@@ -1,7 +1,7 @@
 #ifndef COLOR_PALETTE
 #define COLOR_PALETTE
 #include "Color.hpp"
-#include <Stealth/Tensor3>
+#include <Tensor3>
 #include <vector>
 
 namespace StealthColor {
