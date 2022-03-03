@@ -14,6 +14,7 @@ tensor3 = sbuildr.dependencies.Dependency(
 project.interfaces(
     filter(os.path.isfile, glob.glob(os.path.join("include", "**", "*"), recursive=True)), depends=[tensor3]
 )
+project.library("color", sources=glob.glob(os.path.join("src", "**", "*.cpp"), recursive=True))
 
 for source in glob.iglob(os.path.join("test", "*.cpp"), recursive=True):
     project.test(os.path.splitext(os.path.basename(source))[0], sources=[source], libs=[cppstdlib])
